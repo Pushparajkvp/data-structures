@@ -10,17 +10,17 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class DoublyLinkdedListTest {
+public class SinglyLinkedListTest {
     private static final int LOOPS = 10000;
     private static final int TEST_SZ = 40;
     private static final int NUM_NULLS = TEST_SZ / 5;
     private static final int MAX_RAND_NUM = 250;
 
-    DoublyLinkedList<Integer> list;
+    SinglyLinkedList<Integer> list;
 
     @Before
     public void setup() {
-        list = new DoublyLinkedList<>();
+        list = new SinglyLinkedList<>();
     }
 
     @Test
@@ -147,7 +147,7 @@ public class DoublyLinkdedListTest {
 
     @Test
     public void testRemoving() {
-        DoublyLinkedList<String> strs = new DoublyLinkedList<>();
+        SinglyLinkedList<String> strs = new SinglyLinkedList<>();
         strs.add("a");
         strs.add("b");
         strs.add("c");
@@ -213,9 +213,9 @@ public class DoublyLinkdedListTest {
             for (int i = 0; i < randNums.size(); i++) {
 
                 Integer rm_val = randNums.get(i);
-
                 assertEquals(javaLinkedList.remove(rm_val), list.remove(rm_val));
                 assertEquals(javaLinkedList.size(), list.size());
+
 
                 java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
                 java.util.Iterator<Integer> iter2 = list.iterator();
