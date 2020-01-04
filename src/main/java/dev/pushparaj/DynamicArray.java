@@ -68,7 +68,7 @@ public class DynamicArray<T> implements Iterable<T> {
 
     public boolean removeAt(int index){
         if(index >= size || index < 0)
-            return false;
+            throw new IndexOutOfBoundsException("Index is invalid : " + index);
         T[] newArr =(T[]) new Object[capacity];
 
         for(int i=0,j=0; i < this.size; i++,j++){
