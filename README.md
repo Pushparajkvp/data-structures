@@ -4,11 +4,11 @@ Data structures has always been the critical part in all aspects of computer sci
 
 ## Index
 
-1. [Dynamic Array](src/main/java/DynamicArray.java)
-1. [Stack](src/main/java/Stack.java)
-1. [Queue](src/main/java/Queue.java)
+1. [Dynamic Array](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/DynamicArray.java)
+1. [Stack](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Stack.java)
+1. [Queue](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Queue.java)
 1. Linked List
-    1. [Singly Linked List](src/main/java/SinglyLinkedList.java)
-    1. [Doubly Linked List](src/main/java/DoublyLinkedList.java)
-1. [Binary Heap](src/main/java/BinaryHeap.java)
-1. [Union Find](src/main/java/UnionFind.java)
+    1. [Singly Linked List](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/SinglyLinkedList.java)
+    1. [Doubly Linked List](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/DoublyLinkedList.java)
+1. [Binary Heap](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/BinaryHeap.java)
+1. [Union Find](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/UnionFind.java)
