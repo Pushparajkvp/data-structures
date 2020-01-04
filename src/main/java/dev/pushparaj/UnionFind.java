@@ -1,16 +1,5 @@
 package dev.pushparaj;
 
-import java.util.HashMap;
-
-/*
-* public UnionFind(int size)
-* public int find(int p)
-* public boolean connected(int p, int q)
-* public int componentSize(int p)
-* public int size()
-* public int components()
-* public void unify(int p, int q)
- * */
 public class UnionFind {
 
     private int componentsCount = 0;
