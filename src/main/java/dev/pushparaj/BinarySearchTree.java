@@ -1,23 +1,8 @@
 package dev.pushparaj;
 
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 
-/*
-* public boolean isEmpty()
-* public int size()
-* public boolean add(T elem)
-* private Node add(Node node, T elem)
-* public boolean remove(T elem)
-* private Node remove(Node node, T elem)
-* private Node findMin(Node node)
-* private Node findMax(Node node)
-* public boolean contains(T elem)
-* private boolean contains(Node node, T elem)
-* public int height()
-* private int height(Node node)
-* public java.util.Iterator<T> traverse(TreeTraversalOrder order)
-*
-* */
 public class BinarySearchTree<T extends Comparable<T>> {
 
     private int nodesCount = 0;
@@ -67,6 +52,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public java.util.Iterator<T> traverse(TreeTraversalOrder order) {
         switch (order) {
             case PRE_ORDER:
+                return getPreorderIterator();
                 break;
             case IN_ORDER:
                 break;
@@ -77,21 +63,94 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    private java.util.Iterator<T> preorderIterator = new java.util.Iterator<T>() {
+    private java.util.Iterator<T> getPreorderIterator() {
+        final int iteratorCount = nodesCount;
+        final Stack<Node<T>> stack = new Stack<>();
+        stack.push(root);
 
-        private int iteratorCount = nodesCount;
+        return new java.util.Iterator<T>() {
 
-        @Override
-        public boolean hasNext() {
-            if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+            @Override
+            public boolean hasNext() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                return root != null && !stack.isEmpty();
+            }
 
-            return false;
+            @Override
+            public T next() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                Node<T> node = stack.pop();
+                if(node.left != null) stack.push(node.left);
+                if(node.right != null) stack.push(node.right);
+                return node.data;
+            }
+        };
+    }
+
+    private java.util.Iterator<T> getInOrderIterator() {
+
+        final int iteratorCount = nodesCount;
+        final Stack<Node<T>> iteratorStack = new Stack<>();
+        final Queue<Node<T>> queue = new Queue<>();
+
+        Node<T> currNode = root;
+
+        while (currNode != null || iteratorStack.size() > 0) {
+
+            while (currNode != null) {
+                iteratorStack.push(currNode);
+                currNode = currNode.left;
+            }
+
+            currNode = iteratorStack.pop();
+            queue.offer(currNode);
+
+            currNode = currNode.right;
         }
 
-        @Override
-        public T next() {
-            return null;
+        return new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                return root != null && !queue.isEmpty();
+            }
+
+            @Override
+            public T next() {
+                return queue.poll().data;
+            }
+        };
+    }
+
+    private java.util.Iterator<T> getPostorderIterator() {
+        final int iteratorCount = nodesCount;
+        final Stack<Node<T>> iteratorStack = new Stack<>();
+        final Stack<Node<T>> stack = new Stack<>();
+
+        iteratorStack.push(root);
+
+        while (!iteratorStack.isEmpty()){
+            Node<T> node = iteratorStack.p
+            stack.push();
+
         }
+        return new java.util.Iterator<T>() {
+
+            @Override
+            public boolean hasNext() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                return root != null && !stack.isEmpty();
+            }
+
+            @Override
+            public T next() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                Node<T> node = stack.pop();
+                if(node.left != null) stack.push(node.left);
+                if(node.right != null) stack.push(node.right);
+                return node.data;
+            }
+        };
     }
 
     private int height(Node node) {
