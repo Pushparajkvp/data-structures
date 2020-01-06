@@ -53,20 +53,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
         switch (order) {
             case PRE_ORDER:
                 return getPreorderIterator();
-                break;
             case IN_ORDER:
-                break;
+                return getInOrderIterator();
             case POST_ORDER:
-                break;
+                return getPostorderIterator();
             case LEVEL_ORDER:
-                break;
+                return getLevelOrderIterator();
         }
+        return null;
     }
 
     private java.util.Iterator<T> getPreorderIterator() {
         final int iteratorCount = nodesCount;
         final Stack<Node<T>> stack = new Stack<>();
-        stack.push(root);
+        if(root != null) stack.push(root);
 
         return new java.util.Iterator<T>() {
 
@@ -80,8 +80,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
             public T next() {
                 if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
                 Node<T> node = stack.pop();
-                if(node.left != null) stack.push(node.left);
                 if(node.right != null) stack.push(node.right);
+                if(node.left != null) stack.push(node.left);
                 return node.data;
             }
         };
@@ -127,12 +127,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
         final Stack<Node<T>> iteratorStack = new Stack<>();
         final Stack<Node<T>> stack = new Stack<>();
 
-        iteratorStack.push(root);
+        if(root != null) iteratorStack.push(root);
 
         while (!iteratorStack.isEmpty()){
-            Node<T> node = iteratorStack.p
-            stack.push();
-
+            Node<T> node = iteratorStack.pop();
+            if(node.left != null) iteratorStack.push(node.left);
+            if(node.right != null) iteratorStack.push(node.right);
+            stack.push(node);
         }
         return new java.util.Iterator<T>() {
 
@@ -145,9 +146,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
             @Override
             public T next() {
                 if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
-                Node<T> node = stack.pop();
-                if(node.left != null) stack.push(node.left);
-                if(node.right != null) stack.push(node.right);
+                return stack.pop().data;
+            }
+        };
+    }
+
+    private java.util.Iterator<T> getLevelOrderIterator() {
+        final int iteratorCount = nodesCount;
+        final Queue<Node<T>> queue = new Queue<>();
+        if(root != null) queue.offer(root);
+
+        return new java.util.Iterator<T>(){
+
+            @Override
+            public boolean hasNext() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                return root != null && !queue.isEmpty();
+            }
+
+            @Override
+            public T next() {
+                if(iteratorCount != nodesCount) throw new ConcurrentModificationException("Tree modified");
+                Node<T> node = queue.poll();
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
                 return node.data;
             }
         };

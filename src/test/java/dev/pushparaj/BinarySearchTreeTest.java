@@ -197,6 +197,141 @@ public class BinarySearchTreeTest {
         assertTrue(tree.contains('C'));
     }
 
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorPreOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
+
+        while (iter.hasNext()) {
+            bst.add(0);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorInOrderOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
+
+        while (iter.hasNext()) {
+            bst.add(0);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorPostOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
+
+        while (iter.hasNext()) {
+            bst.add(0);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorLevelOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
+
+        while (iter.hasNext()) {
+            bst.add(0);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorRemovingPreOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.PRE_ORDER);
+
+        while (iter.hasNext()) {
+            bst.remove(2);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorRemovingInOrderOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.IN_ORDER);
+
+        while (iter.hasNext()) {
+            bst.remove(2);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorRemovingPostOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.POST_ORDER);
+
+        while (iter.hasNext()) {
+            bst.remove(2);
+            iter.next();
+        }
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void concurrentModificationErrorRemovingLevelOrder() {
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        bst.add(1);
+        bst.add(2);
+        bst.add(3);
+
+        Iterator<Integer> iter = bst.traverse(TreeTraversalOrder.LEVEL_ORDER);
+
+        while (iter.hasNext()) {
+            bst.remove(2);
+            iter.next();
+        }
+    }
 
     @Test
     public void randomRemoveTests() {
@@ -228,6 +363,85 @@ public class BinarySearchTreeTest {
         for (int i = 0; i < sz; i++) lst.add(i);
         Collections.shuffle(lst);
         return lst;
+    }
+
+    public boolean validateTreeTraversal(TreeTraversalOrder trav_order, List<Integer> input) {
+
+        List<Integer> out = new ArrayList<>();
+        List<Integer> expected = new ArrayList<>();
+
+        TestTreeNode testTree = null;
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+
+        // Construct Binary Tree and test tree
+        for (Integer value : input) {
+            testTree = TestTreeNode.add(testTree, value);
+            tree.add(value);
+        }
+
+        // Generate the expected output for the particular traversal
+        switch (trav_order) {
+            case PRE_ORDER:
+                TestTreeNode.preOrder(expected, testTree);
+                break;
+            case IN_ORDER:
+                TestTreeNode.inOrder(expected, testTree);
+                break;
+            case POST_ORDER:
+                TestTreeNode.postOrder(expected, testTree);
+                break;
+            case LEVEL_ORDER:
+                TestTreeNode.levelOrder(expected, testTree);
+                break;
+        }
+
+        // Get traversal output
+        Iterator<Integer> iter = tree.traverse(trav_order);
+        while (iter.hasNext()) out.add(iter.next());
+
+        // The output and the expected size better be the same size
+        if (out.size() != expected.size()) return false;
+
+        // Compare output to expected
+        for (int i = 0; i < out.size(); i++) if (!expected.get(i).equals(out.get(i))) return false;
+
+        return true;
+    }
+
+    @Test
+    public void testPreOrderTraversal() {
+
+        for (int i = 0; i < LOOPS; i++) {
+            List<Integer> input = genRandList(i);
+            assertTrue(validateTreeTraversal(TreeTraversalOrder.PRE_ORDER, input));
+        }
+    }
+
+    @Test
+    public void testInOrderTraversal() {
+
+        for (int i = 0; i < LOOPS; i++) {
+            List<Integer> input = genRandList(i);
+            assertTrue(validateTreeTraversal(TreeTraversalOrder.IN_ORDER, input));
+        }
+    }
+
+    @Test
+    public void testPostOrderTraversal() {
+
+        for (int i = 0; i < LOOPS; i++) {
+            List<Integer> input = genRandList(i);
+            assertTrue(validateTreeTraversal(TreeTraversalOrder.POST_ORDER, input));
+        }
+    }
+
+    @Test
+    public void testLevelOrderTraversal() {
+
+        for (int i = 0; i < LOOPS; i++) {
+            List<Integer> input = genRandList(i);
+            assertTrue(validateTreeTraversal(TreeTraversalOrder.LEVEL_ORDER, input));
+        }
     }
 
 }
