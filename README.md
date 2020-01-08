@@ -12,3 +12,4 @@ Data structures has always been the critical part in all aspects of computer sci
     1. [Doubly Linked List](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/DoublyLinkedList.java)
 1. [Binary Heap](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/BinaryHeap.java)
 1. [Union Find](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/UnionFind.java)
+1. [Binary Search Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/BinarySearchTree.java)
