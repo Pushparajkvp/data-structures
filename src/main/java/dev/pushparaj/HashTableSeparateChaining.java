@@ -1,8 +1,6 @@
 package dev.pushparaj;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * HashTableSeparateChaining()
@@ -72,8 +70,10 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
     }
 
     public HashTableSeparateChaining(int capacity, double maxLoadFactor) {
-        if(maxLoadFactor < 0 || Double.isNaN(maxLoadFactor) || Double.isFinite(maxLoadFactor))
+        if(maxLoadFactor <= 0 || Double.isNaN(maxLoadFactor) || Double.isInfinite(maxLoadFactor))
             throw new IllegalArgumentException("Invalid maxLoadFactor : " + maxLoadFactor);
+        if(capacity < 0)
+            throw new IllegalArgumentException("Capacity cannot be negative : " + capacity);
         this.maxLoadFactor = maxLoadFactor;
         this.capacity = Math.max(capacity, DEFAULT_CAPACITY);
         this.size = 0;
@@ -108,23 +108,34 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
     }
 
     public V put(K key, V value) {
-
+        return insert(key, value);
     }
 
     public V add(K key, V value) {
-
+        return insert(key, value);
     }
 
     public V insert(K key, V value) {
-
+        if(key == null)
+            throw new IllegalArgumentException("Key cannot be null");
+        Entry<K, V> entry = new Entry<>(key, value);
+        int index = normalizeIndex(entry.hash);
+        return bucketInsertEntry(index, entry);
     }
 
     public V get(K key) {
-
+        int hashCode = key.hashCode();
+        int index = normalizeIndex(hashCode);
+        Entry<K, V> entry = bucketSeekEntry(index, key);
+        if(entry == null)
+            return null;
+        return entry.value;
     }
 
     public V remove(K key) {
-
+        int hashCode = key.hashCode();
+        int index = normalizeIndex(hashCode);
+        return bucketRemoveEntry(index, key);
     }
 
     private V bucketRemoveEntry(int bucketIndex, K key) {
@@ -194,12 +205,84 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
 
     }
 
+    public List<K> keys() {
+        List<K> keys = new ArrayList<>();
+
+        for(int it = 0; it < table.length; it++) {
+            LinkedList<Entry<K, V>> bucket = table[it];
+            if(bucket == null) continue;
+
+            for(Entry<K, V> entry : bucket) {
+                keys.add(entry.key);
+            }
+        }
+        return keys;
+    }
+
+    public List<V> values() {
+        List<V> values = new ArrayList<>();
+
+        for(int it = 0; it < table.length; it++) {
+            LinkedList<Entry<K, V>> bucket = table[it];
+            if(bucket == null) continue;
+
+            for(Entry<K, V> entry : bucket) {
+                values.add(entry.value);
+            }
+        }
+        return values;
+    }
+
     private int normalizeIndex(int keyHash) {
         return (keyHash & 0x7FFFFFFF) % capacity;
     }
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+
+        int sizeBeforeIterator = size;
+
+        return new Iterator<K>() {
+
+            int bucketIndex = 0;
+            Iterator<Entry<K, V>> bucketIterator = table[0] == null ? null : table[0].iterator();
+
+            @Override
+            public boolean hasNext() {
+
+                if(sizeBeforeIterator != size) throw new ConcurrentModificationException("HashTable Concurrently Modified");
+
+                if (bucketIterator == null || !bucketIterator.hasNext()) {
+                    while (++bucketIndex < capacity) {
+                        LinkedList<Entry<K, V>> bucket = table[bucketIndex];
+                        if(bucket != null) {
+                            Iterator<Entry<K, V>> iterator = table[bucketIndex].iterator();
+                            if(iterator.hasNext()) {
+                                bucketIterator = iterator;
+                                break;
+                            }
+                        }
+                    }
+                }
+                return bucketIndex < capacity;
+            }
+
+            @Override
+            public K next() {
+                return bucketIterator.next().key;
+            }
+        };
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for (int i = 0; i < capacity; i++) {
+            if (table[i] == null) continue;
+            for (Entry<K, V> entry : table[i]) sb.append(entry + ", ");
+        }
+        sb.append("}");
+        return sb.toString();
     }
 }
