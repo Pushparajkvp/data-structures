@@ -170,7 +170,7 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
         if(existingValue == null) {
             bucket.addLast(entry);
             if(++size > threshold) resizeTable();
-            return entry.value;
+            return null;
         } else {
             V oldValue = existingValue.value;
             existingValue.value = entry.value;
@@ -202,6 +202,7 @@ public class HashTableSeparateChaining<K, V> implements Iterable<K> {
                 table[it] = null;
             }
         }
+        this.table = newTable;
 
     }
 
