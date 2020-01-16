@@ -20,3 +20,6 @@ Data structures has always been the critical part in all aspects of computer sci
     1. [Hash Table Linear Probing](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/HashTableLinearProbing.java)
     1. [Hash Table Quadratic Probing](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/HashTableQuadraticProbing.java)
     1. [Hash Table Separate Chaining](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/HashTableSeparateChaining.java)
+1. Segment Tree
+    1. [Array Implementation](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/CompactSegmentTree.java)
+    1. [Pointer Implementation](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Node.java)
