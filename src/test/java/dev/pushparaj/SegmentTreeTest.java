@@ -6,7 +6,7 @@ import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CompactSegmentTreeTest {
+public class SegmentTreeTest {
     static final int LOOPS = 50;
     static final int TEST_SZ = 1000;
     static final int MIN_RAND_NUM = 0;
