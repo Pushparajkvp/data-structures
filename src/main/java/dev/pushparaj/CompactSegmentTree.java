@@ -11,7 +11,7 @@ public class CompactSegmentTree {
     private long[] tree;
 
     public CompactSegmentTree(int size) {
-        tree = new long[(N = size)];
+        tree = new long[2 * (N = size)];
         Arrays.fill(tree, UNIQUE_VALUE);
     }
 
@@ -49,5 +49,13 @@ public class CompactSegmentTree {
             throw new IllegalStateException("Illegal state");
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < tree.length; i++)
+            stringBuilder.append("Index : ").append(i).append(" Value : ").append(tree[i]).append(",");
+        return stringBuilder.toString();
     }
 }

@@ -2,30 +2,7 @@ package dev.pushparaj;
 
 import java.util.*;
 
-/*
- * HashTableSeparateChaining()
- * HashTableSeparateChaining(int capacity)
- * HashTableSeparateChaining(int capacity, double maxLoadFactor)
- * int size()
- * boolean isEmpty()
- * int normalizeIndex(int keyHash)
- * clear()
- * boolean containsKey(K key)
- * boolean hasKey(K key)
- * V put(K key, V value)
- * V add(K key, V value)
- * V insert(K key, V value)
- * V get(K key)
- * V remove(K key)
- * V bucketRemoveEntry(int bucketIndex, K key)
- * V bucketInsertEntry(int bucketIndex, Entry<K, V> entry)
- * Entry<K, V> bucketSeekEntry(int bucketIndex, K key)
- * resizeTable()
- * List<K> keys()
- * List<V> values()
- * java.util.Iterator<K> iterator()
- * String toString()
- * */
+
 class Entry<K, V> {
 
     int hash;
