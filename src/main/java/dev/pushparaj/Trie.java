@@ -77,8 +77,7 @@ public class Trie {
 
             if(nextNode.count <= 0) {
                 trav.characterTrieNodeMap.remove(chr);
-                nextNode.characterTrieNodeMap = null;
-                nextNode = null;
+                remove(nextNode);
                 return true;
             }
 
@@ -113,6 +112,19 @@ public class Trie {
         root.characterTrieNodeMap = null;
         root = new TrieNode();
     }
+
+    private void remove(TrieNode node){
+        if(node == null)
+            return;
+        for(char chr : node.characterTrieNodeMap.keySet()) {
+            TrieNode nodeToRemove = node.characterTrieNodeMap.get(chr);
+            remove(nodeToRemove);
+        }
+        node.characterTrieNodeMap.clear();
+        node.characterTrieNodeMap = null;
+        node = null;
+    }
+
     private static class TrieNode {
         Map<Character, TrieNode> characterTrieNodeMap =null;
         boolean isEndOfWord;
