@@ -23,3 +23,7 @@ Data structures has always been the critical part in all aspects of computer sci
 1. Segment Tree
     1. [Array Implementation](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/CompactSegmentTree.java)
     1. [Pointer Implementation](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Node.java)
+1. Binary Search Tree
+    1. [Binary Search Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/BinarySearchTree.java)
+    1. [AVL Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/AVLTreeRecursive.java)
+1. [Trie](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Trie.java)
