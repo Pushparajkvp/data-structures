@@ -16,6 +16,8 @@ public class RedBlackTree<T extends Comparable> {
             root = new Node<T>(data);
             return;
         }
+
+
         root = insert(data, root);
     }
 
@@ -41,16 +43,40 @@ public class RedBlackTree<T extends Comparable> {
     }
 
     private Node<T> leftRotate(Node<T> pivot){
+        //Identify successor
         Node<T> successorNode = pivot.right;
+        if(successorNode == null)
+            return pivot;
+
+        //Map child of successor
+        if(successorNode.left != null)
+            successorNode.left.parent = pivot;
         pivot.right = successorNode.left;
+
+        //Map successor to pivot
         successorNode.left = pivot;
+        successorNode.parent = pivot.parent;
+        pivot.parent = successorNode;
+
         return successorNode;
     }
 
     private Node<T> rightRotate(Node<T> pivot) {
+        //Identify successor
         Node<T> successorNode = pivot.left;
+        if(successorNode == null)
+            return pivot;
+
+        //Map child of successor
+        if(successorNode.right != null)
+            successorNode.right.parent = pivot;
         pivot.left = successorNode.right;
+
+        //Map successor to pivot
         successorNode.right = pivot;
+        successorNode.parent = pivot.parent;
+        pivot.parent = successorNode;
+
         return successorNode;
     }
 
@@ -76,19 +102,22 @@ public class RedBlackTree<T extends Comparable> {
 
         public  T data;
 
-        public Node(T data) {
+        public Node(T data, Node<T> parent) {
             this.data = data;
+            this.parent = parent;
         }
 
-        public Node(T data, Color color) {
+        public Node(T data, Node<T> parent, Color color) {
             this.data = data;
             this.color = color;
+            this.parent = parent;
         }
 
-        public Node(T data, Node<T> left, Node<T> right) {
+        public Node(T data,Node<T> parent, Node<T> left, Node<T> right) {
             this.data = data;
             this.left = left;
             this.right = right;
+            this.parent = parent;
         }
     }
 
