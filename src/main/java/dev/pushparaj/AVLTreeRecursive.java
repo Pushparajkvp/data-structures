@@ -58,9 +58,9 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
             if(currNode.left == null && currNode.right == null)
                 return null;
             if(currNode.left == null)
-                return balance(currNode.right);
+                return currNode.right;
             if(currNode.right == null)
-                return balance(currNode.left);
+                return currNode.left;
 
             Node<T> successor = digMax(currNode.left);
             currNode.value = successor.value;
