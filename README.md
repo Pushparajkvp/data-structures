@@ -26,4 +26,5 @@ Data structures has always been the critical part in all aspects of computer sci
 1. Binary Search Tree
     1. [Binary Search Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/BinarySearchTree.java)
     1. [AVL Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/AVLTreeRecursive.java)
+    1. [Red-Black Tree](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/RedBlackTree.java)
 1. [Trie](https://github.com/Pushparajkvp/data-structures/blob/master/src/main/java/dev/pushparaj/Trie.java)
