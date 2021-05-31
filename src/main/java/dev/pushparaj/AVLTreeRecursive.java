@@ -110,6 +110,7 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
     private Node<T> balance(Node<T> node) {
         if(node == null)
             return null;
+        update(node);
         switch (node.balancingFactor) {
             case -2:
                 if(node.left.balancingFactor > 0) {
