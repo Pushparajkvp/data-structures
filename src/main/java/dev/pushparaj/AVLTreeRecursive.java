@@ -110,7 +110,6 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
     private Node<T> balance(Node<T> node) {
         if(node == null)
             return null;
-        update(node);
         switch (node.balancingFactor) {
             case -2:
                 if(node.left.balancingFactor > 0) {
@@ -125,7 +124,6 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
                 node = leftRotation(node);
                 break;
         }
-        update(node);
         return node;
     }
 
@@ -133,8 +131,8 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
         Node<T> nextRoot = node.right;
         node.right = nextRoot.left;
         nextRoot.left = node;
-        update(nextRoot);
         update(node);
+        update(nextRoot);
         return nextRoot;
     }
 
@@ -142,8 +140,8 @@ public class AVLTreeRecursive<T extends Comparable<T>> {
         Node<T> nextRoot = node.left;
         node.left = nextRoot.right;
         nextRoot.right = node;
-        update(nextRoot);
         update(node);
+        update(nextRoot);
         return nextRoot;
     }
 
